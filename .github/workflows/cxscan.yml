@@ -1,0 +1,72 @@
+name: Security Scan with Checkmarx One
+
+on:
+  workflow_call:
+    inputs:
+      retention-days:
+        description: Retention period to store artifact
+        required: false
+        type: string
+        default: 7
+      file-filters:
+        description: Files to filter out from scan
+        required: false
+        type: string
+        default: "'!.github',!'.mvn'"
+      project-name:
+        description: Custom project name to override the repo
+        required: false
+        type: string
+      #project-group:
+       # description: Custom project group to override the default group
+        #required: false
+        #type: string
+        #default: "ResMedAllUsers"
+jobs:  
+  security-scan:
+    name: Checkmarx
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Determine project name
+        id: project_name
+        run: |
+          if [ -z "${{ inputs.project-name }}" ]; then
+            PROJECT=${{ github.repository }}
+          else
+            PROJECT=${{ inputs.project-name }}
+          fi
+          echo "project=$PROJECT" >> $GITHUB_OUTPUT
+
+
+      - name: Checkmarx One Action for PR or Push
+        uses: checkmarx/ast-github-action@2.0.21 # Github Action version
+        if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
+        with:
+          base_uri:  https://eu.ast.checkmarx.net
+          cx_tenant: resmed
+          cx_client_id: ${{ secrets.oauthclient }}
+          cx_client_secret: ${{ secrets.oauthsecret }}
+          # Ternary operator to attach -PR for pull request events
+          project_name:  ${{ steps.project_name.outputs.project }}
+          branch: ${{ github.ref }}
+          # Not specifying the scan-types will use all that you have licenses for
+ #         additional_params: |
+ #            --tags namespace:${{ github.repository_owner }},repo-name:${{ github.event.repository.name }},${{ github.event_name == 'pull_request' && format('merge-id:{0}', github.event.number) || '' }} \
+ #            --file-filter ${{ inputs.file-filters }} \
+ #            --project-groups ${{ inputs.project-group }} \
+ #            --report-format json \
+ #            --output-path .
+             
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: checkmarx-results
+#          path: cx_result.json # or path/to/artifact
+#          retention-days: ${{ inputs.retention-days }}
+
+  #secret-scan:
+  #  name: Secret Scan
+  #  uses: resmed/devx-shared-workflows/.github/workflows/secret-scan.yml@develop
+  #  secrets: inherit
