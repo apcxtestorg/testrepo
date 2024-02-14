@@ -61,7 +61,7 @@ jobs:
  #            --report-format json \
  #            --output-path .
           #additional_params: --debug --apikey ${{ secrets.apisecret }}
-          additional_params: --debug  
+          additional_params: --sast-incremental
 #      - uses: actions/upload-artifact@v4
 #        with:
 #          name: checkmarx-results
