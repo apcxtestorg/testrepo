@@ -30,15 +30,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Determine project name
-        id: project_name
-        run: |
-          if [ -z "${{ inputs.project-name }}" ]; then
-            PROJECT=${{ github.repository }}
-          else
-            PROJECT=${{ inputs.project-name }}
-          fi
-          echo "project=$PROJECT" >> $GITHUB_OUTPUT
+      #- name: Determine project name
+       # id: project_name
+       # run: |
+       #   if [ -z "${{ inputs.project-name }}" ]; then
+       #     PROJECT=${{ github.repository }}
+       #   else
+       #     PROJECT=${{ inputs.project-name }}
+       #   fi
+       #   echo "project=$PROJECT" >> $GITHUB_OUTPUT
 
 
       - name: Checkmarx One Action for PR or Push
@@ -52,7 +52,7 @@ jobs:
           # Ternary operator to attach -PR for pull request events
           #project_name:  ${{ steps.project_name.outputs.project }}
           project_name: AP Github Action
-          branch: ${{ github.ref }}
+          #branch: ${{ github.ref }}
           # Not specifying the scan-types will use all that you have licenses for
  #         additional_params: |
  #            --tags namespace:${{ github.repository_owner }},repo-name:${{ github.event.repository.name }},${{ github.event_name == 'pull_request' && format('merge-id:{0}', github.event.number) || '' }} \
