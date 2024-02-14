@@ -42,7 +42,7 @@ jobs:
 
 
       - name: Checkmarx One Action for PR or Push
-        uses: checkmarx/ast-github-action@2.0.main # Github Action version
+        uses: checkmarx/ast-github-action@main # Github Action version
         #if: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
         with:
           base_uri:  https://eu.ast.checkmarx.net
