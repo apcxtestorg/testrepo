@@ -50,7 +50,8 @@ jobs:
           cx_client_id: ${{ secrets.oauthclient }}
           cx_client_secret: ${{ secrets.oauthsecret }}
           # Ternary operator to attach -PR for pull request events
-          project_name:  ${{ steps.project_name.outputs.project }}
+          #project_name:  ${{ steps.project_name.outputs.project }}
+          project_name: AP Github Action
           branch: ${{ github.ref }}
           # Not specifying the scan-types will use all that you have licenses for
  #         additional_params: |
