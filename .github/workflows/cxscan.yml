@@ -70,5 +70,5 @@ jobs:
 
   secret-scan:
     name: Secret Scan
-    uses: apcxtestorg/testepo3/.github/workflows/cxscan.yml@main
+    uses: apcxtestorg/testepo/.github/workflows/cxscan.yml@main
     secrets: inherit
