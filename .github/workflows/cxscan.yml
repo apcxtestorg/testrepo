@@ -68,7 +68,7 @@ jobs:
 #          path: cx_result.json # or path/to/artifact
 #          retention-days: ${{ inputs.retention-days }}
 
-  #secret-scan:
-  #  name: Secret Scan
-  #  uses: resmed/devx-shared-workflows/.github/workflows/secret-scan.yml@develop
-  #  secrets: inherit
+  secret-scan:
+    name: Secret Scan
+    uses: apcxtestorg/testepo3/.github/workflows/cxscan.yml@main
+    secrets: inherit
