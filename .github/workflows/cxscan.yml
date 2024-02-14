@@ -60,6 +60,7 @@ jobs:
  #            --project-groups ${{ inputs.project-group }} \
  #            --report-format json \
  #            --output-path .
+          additional_params: --debug
              
 #      - uses: actions/upload-artifact@v4
 #        with:
