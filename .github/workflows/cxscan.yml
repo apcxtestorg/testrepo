@@ -8,11 +8,11 @@ on:
         required: false
         type: string
         default: 7
-      file-filters:
-        description: Files to filter out from scan
-        required: false
-        type: string
-        default: "'!.github',!'.mvn'"
+      #file-filters:
+      #  description: Files to filter out from scan
+      #  required: false
+      #  type: string
+      #  default: "'!.github',!'.mvn'"
       project-name:
         description: Custom project name to override the repo
         required: false
